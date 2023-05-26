@@ -2,26 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+.callToAction {
+  @apply bg-white text-gray-900 font-bold py-2 px-4 rounded hover:bg-white/75 transition duration-200 ease-in-out;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.callToAction:disabled {
+  @apply bg-gray-200 text-gray-900 cursor-not-allowed;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.callToAction.dark {
+  @apply bg-gray-900 text-white hover:bg-gray-900/75;
+}
+
+.callToAction.alternative {
+  @apply bg-gray-200 text-gray-900;
+}
+
+a {
+  @apply text-white hover:text-white/75 transition duration-200 ease-in-out;
+}
+
+.item-check {
+  @apply flex gap-2 py-1 px-4 bg-purple-100 rounded-full border border-dashed border-purple-900/50 transition-all duration-200;
+}
+
+.item-check:has(input:checked) {
+  @apply bg-purple-300 border border-solid border-purple-900;
+}
+
+.item-check:has(input[disabled]) {
+  @apply bg-gray-200 opacity-50;
+}
+
+.map-container {
+  display: flex;
+  height: 100%;
 }
