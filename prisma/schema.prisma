@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Hero {
+  id               String         @id @default(uuid())
+  name             String         @unique
+  incidents        IncidentType[]
+  latitude         Float
+  longitude        Float
+  phoneNumber      String
+  available        Boolean        @default(true)
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @default(now()) @updatedAt
+  currentlyOn      Incident[]
+  accountValidated Boolean        @default(false)
+}
+
+model Incident {
+  id        Int          @id @default(autoincrement())
+  type      IncidentType
+  heroId    String?
+  heroName  String?
+  hero      Hero?        @relation(fields: [heroId, heroName], references: [id, name])
+  latitude  Float
+  longitude Float
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @default(now()) @updatedAt
+}
+
+enum IncidentType {
+  FIRE            @map("FIRE")
+  CAR_ACCIDENT    @map("CAR_ACCIDENT")
+  RIVER_ACCIDENT  @map("RIVER_ACCIDENT")
+  AIR_ACCIDENT    @map("AIR_ACCIDENT")
+  LANDSLIDE       @map("LANDSLIDE")
+  SNAKE_INVASION  @map("SNAKE_INVASION")
+  GAS_LEAK        @map("GAS_LEAK")
+  DEMONSTRATION   @map("DEMONSTRATION")
+  ROBBERY         @map("ROBBERY")
+  PRISONER_ESCAPE @map("PRISONER_ESCAPE")
+}
