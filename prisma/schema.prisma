@@ -7,6 +7,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
 model Hero {
   id               String         @id @default(uuid())
   name             String         @unique
@@ -25,8 +29,7 @@ model Incident {
   id        Int          @id @default(autoincrement())
   type      IncidentType
   heroId    String?
-  heroName  String?
-  hero      Hero?        @relation(fields: [heroId, heroName], references: [id, name])
+  hero      Hero?        @relation(fields: [heroId], references: [id])
   latitude  Float
   longitude Float
   createdAt DateTime     @default(now())

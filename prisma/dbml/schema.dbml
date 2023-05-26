@@ -1,0 +1,43 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Hero {
+  id String [pk]
+  name String [unique, not null]
+  incidents IncidentType[] [not null]
+  latitude Float [not null]
+  longitude Float [not null]
+  phoneNumber String [not null]
+  available Boolean [not null, default: true]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  currentlyOn Incident [not null]
+  accountValidated Boolean [not null, default: false]
+}
+
+Table Incident {
+  id Int [pk, increment]
+  type IncidentType [not null]
+  heroId String
+  hero Hero
+  latitude Float [not null]
+  longitude Float [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+}
+
+Enum IncidentType {
+  FIRE
+  CAR_ACCIDENT
+  RIVER_ACCIDENT
+  AIR_ACCIDENT
+  LANDSLIDE
+  SNAKE_INVASION
+  GAS_LEAK
+  DEMONSTRATION
+  ROBBERY
+  PRISONER_ESCAPE
+}
+
+Ref: Incident.heroId > Hero.id
